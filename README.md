@@ -41,7 +41,7 @@ When you extract the package, you will find a structured directory designed for 
 ├── 📄 logo.png         # Source application icon
 ├── 📜 start-server.bat # Automated initialization & boot script
 ├── 📜 uninstall.bat    # Clean removal utility
-└── 📄 README.txt        # Documentation
+└── 📄 README.txt       # Documentation
 ```
 
 ---
