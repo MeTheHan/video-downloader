@@ -35,7 +35,7 @@ To download the `.zip` file, visit our official release page:
 When you extract the package, you will find a structured directory designed for modularity:
 
 ```text
-📁 Video-Downloader-Final/
+📁 MTechno-Video-Downloader/
 ├── 📁 extension/       # Core browser extension files (Load this in Chromium)
 ├── 📁 server/          # Backend extraction engine powered by yt-dlp
 ├── 📄 logo.png         # Source application icon
