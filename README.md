@@ -1,4 +1,3 @@
-```markdown
 <div align="center">
 
 # ⚡ VIDEO DOWNLOADER 
@@ -43,24 +42,21 @@ When you extract the package, you will find a structured directory designed for 
 ├── 📜 start-server.bat # Automated initialization & boot script
 ├── 📜 uninstall.bat    # Clean removal utility
 └── 📄 README.md        # Documentation (You are here)
-
 ```
 
 ---
 
 ## 🚀 Quick Start Guide (One-Time Setup)
 
-Getting the system up and running takes less than a minute.
+Getting the system up and running takes less than a minute. 
 
 ### Step 1: Initialize the Engine
+Double-click `start-server.bat`. This acts as a smart bootstrap utility. 
 
-Double-click `start-server.bat`. This acts as a smart bootstrap utility.
-
-> **First Run Only (~130 MB):** The script dynamically checks your system and automatically installs Python (~25MB), `yt-dlp` (~15MB), networking libraries (`aiohttp`, `aiohttp-cors`), and FFmpeg for advanced media multiplexing (~80MB).
+> **First Run Only (~130 MB):** The script dynamically checks your system and automatically installs Python (~25MB), `yt-dlp` (~15MB), networking libraries (`aiohttp`, `aiohttp-cors`), and FFmpeg for advanced media multiplexing (~80MB). 
 > *Subsequent launches bypass this process and boot in under **2 seconds**.*
 
 ### Step 2: Deploy the Extension
-
 1. Launch your Chromium-based browser (Brave, Chrome, Edge, etc.).
 2. Navigate to your extensions dashboard (`brave://extensions/` or `chrome://extensions/`).
 3. Toggle **Developer mode** ON (usually located in the top right corner).
@@ -72,7 +68,6 @@ Double-click `start-server.bat`. This acts as a smart bootstrap utility.
 ## 🧹 Clean Teardown
 
 If you need to remove the backend environment:
-
 1. Execute `uninstall.bat`.
 2. The script will safely purge the downloaded Python packages, FFmpeg binaries, and temporary programmatic files.
 
@@ -80,6 +75,9 @@ If you need to remove the backend environment:
 
 ---
 
-**Made by MTechno**
+<div align="center">
 
+**Made by MTechno**  
 🌐 [YouTube: @MTechnoW](https://youtube.com/@MTechnoW)
+
+</div>
