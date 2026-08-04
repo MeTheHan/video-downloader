@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MTechno - Redirecting...</title>
+</head>
+<body>
+
+    <h2>The download has started...</h2>
+    <p>You will be redirected shortly. If the download does not start automatically, please <a id="downloadLink" href="MTechno-Video-Downloader.zip" download>click here</a>.</p>
+
+    <script>
+        window.onload = function() {
+            // Step 1: Automatically click the download link (for the .zip file)
+            document.getElementById('downloadLink').click();
+            
+            // Step 2: Wait 2 seconds (2000 milliseconds) for the download to start, then redirect
+            setTimeout(function() {
+                window.location.href = "https://guns.lol/metehann";
+            }, 2000);
+        };
+    </script>
+
+</body>
+</html>
