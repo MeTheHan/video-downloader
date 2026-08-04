@@ -1,7 +1,7 @@
 <div align="center">
 
-# ⚡ VIDEO DOWNLOADER 
-### *Final Edition*
+# ⚡ VIDEO DOWNLOADER EXTENSION
+### *v1.0*
 
 [![Powered by yt-dlp](https://img.shields.io/badge/Powered_by-yt--dlp-FF0000.svg?style=for-the-badge&logo=youtube&logoColor=white)](https://github.com/yt-dlp/yt-dlp)
 [![Python](https://img.shields.io/badge/Python-3.x-3776AB.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
