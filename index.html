@@ -18,9 +18,12 @@
     --accent: #3ee6a8;
     --accent-dim: #21493b;
     --rec: #ff8a3d;
+    --yt: #ff3b3b;
     --mono: 'JetBrains Mono', monospace;
     --display: 'Space Grotesk', sans-serif;
     --body: 'Inter', sans-serif;
+    --mx: 50%;
+    --my: 30%;
   }
 
   *{ margin:0; padding:0; box-sizing:border-box; }
@@ -40,7 +43,7 @@
     position:relative;
   }
 
-  /* aKBient film-grain / scanline texture */
+  /* film-grain / scanline texture */
   body::before{
     content:"";
     position:fixed; inset:0;
@@ -49,10 +52,12 @@
     pointer-events:none;
     z-index:2;
   }
+
+  /* fare imlecini takip eden dinamik parlama */
   body::after{
     content:"";
-    position:fixed; inset:-10%;
-    background: radial-gradient(circle at 50% 30%, rgba(62,230,168,0.08), transparent 55%);
+    position:fixed; inset:0;
+    background: radial-gradient(560px circle at var(--mx) var(--my), rgba(62,230,168,0.14), rgba(62,230,168,0.04) 35%, transparent 62%);
     pointer-events:none;
     z-index:0;
   }
@@ -74,6 +79,9 @@
     letter-spacing:0.18em;
     color: var(--text-dim);
     text-transform:uppercase;
+    opacity:0;
+    animation: fadeInUp 0.6s ease forwards;
+    animation-delay: 0.05s;
   }
   .brand-row .dot{ width:4px; height:4px; border-radius:50%; background:var(--line); }
 
@@ -98,6 +106,14 @@
     padding:44px 36px 34px;
     text-align:center;
     box-shadow: 0 30px 80px -30px rgba(0,0,0,0.7);
+    opacity:0;
+    animation: fadeInUp 0.6s ease forwards;
+    animation-delay: 0.12s;
+  }
+
+  @keyframes fadeInUp{
+    from{ opacity:0; transform:translateY(10px); }
+    to{ opacity:1; transform:translateY(0); }
   }
 
   .rec-row{
@@ -142,11 +158,8 @@
     stroke-linecap: round;
     stroke-dasharray: 464;
     stroke-dashoffset: 464;
-    transition: stroke-dashoffset 0.35s ease;
+    transition: stroke-dashoffset 0.4s cubic-bezier(.34,1.1,.64,1);
     filter: drop-shadow(0 0 8px rgba(62,230,168,0.45));
-  }
-  .ring-ticks{
-    position:absolute; inset:0;
   }
   .ring-center{
     position:absolute; inset:0;
@@ -192,7 +205,7 @@
     width:0%;
     border-radius:99px;
     background: linear-gradient(90deg, var(--accent-dim), var(--accent));
-    transition: width 0.35s ease;
+    transition: width 0.4s cubic-bezier(.34,1.1,.64,1);
   }
   .bar-meta{
     display:flex;
@@ -217,15 +230,16 @@
     font-size:11.5px;
     color: var(--text-dim);
     opacity:0.35;
-    transition: opacity 0.3s ease, color 0.3s ease;
+    transition: opacity 0.35s ease, color 0.35s ease, transform 0.35s ease;
   }
-  .check-item.active{ opacity:1; color:var(--text); }
+  .check-item.active{ opacity:1; color:var(--text); transform:translateX(1px); }
   .check-item .mark{
     width:14px; height:14px;
     border-radius:4px;
     border:1px solid var(--line);
     display:flex; align-items:center; justify-content:center;
     flex-shrink:0;
+    transition: border-color 0.3s ease, background 0.3s ease;
   }
   .check-item.active .mark{
     border-color: var(--accent);
@@ -239,7 +253,7 @@
     stroke-linecap:round;
     stroke-linejoin:round;
     opacity:0;
-    transition: opacity 0.2s ease;
+    transition: opacity 0.25s ease;
   }
   .check-item.active .mark svg{ opacity:1; }
 
@@ -254,18 +268,65 @@
     border-bottom:1px solid rgba(62,230,168,0.3);
     transition: all 0.3s ease;
   }
-  
-  /* Linki başlangıçta tıklanamaz yapan sınıf */
   .fallback a.disabled {
     pointer-events: none;
     color: var(--line);
     border-bottom-color: transparent;
   }
 
+  /* YouTube kanalı chip'i */
+  .yt-row{
+    margin-top:22px;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+    opacity:0;
+    animation: fadeInUp 0.6s ease forwards;
+    animation-delay: 0.55s;
+  }
+  .yt-chip{
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+    padding:10px 18px 10px 12px;
+    border-radius:99px;
+    border:1px solid var(--line);
+    background: rgba(255,59,59,0.04);
+    text-decoration:none;
+    color: var(--text);
+    font-family: var(--body);
+    font-weight:600;
+    font-size:12.5px;
+    transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .yt-chip:hover{
+    border-color: rgba(255,59,59,0.5);
+    background: rgba(255,59,59,0.09);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px -10px rgba(255,59,59,0.5);
+  }
+  .yt-icon{
+    width:22px; height:22px;
+    border-radius:50%;
+    background: var(--yt);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .yt-icon svg{ width:11px; height:11px; fill:#fff; margin-left:1px; }
+  .yt-chip .yt-sub{
+    display:block;
+    font-family: var(--mono);
+    font-weight:500;
+    font-size:9.5px;
+    color: var(--text-dim);
+    letter-spacing:0.04em;
+    margin-top:1px;
+  }
+
   @media (prefers-reduced-motion: reduce){
     .rec-dot{ animation:none; }
     .ring-fg{ transition:none; }
     .bar-fill{ transition:none; }
+    .brand-row, .card, .yt-row{ animation:none; opacity:1; }
   }
 </style>
 </head>
@@ -314,8 +375,17 @@
       </div>
 
       <div class="fallback">
-        <!-- class="disabled" eklendi -->
         Download not starting? <a id="manualLink" class="disabled" href="MTechno-Video-Downloader.zip" download>Click here</a>.
+      </div>
+
+      <div class="yt-row">
+        <a class="yt-chip" href="https://youtube.com/@mtechnow" target="_blank" rel="noopener">
+          <span class="yt-icon"><svg viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"></polygon></svg></span>
+          <span>
+            Watch on YouTube
+            <span class="yt-sub">@mtechnow</span>
+          </span>
+        </a>
       </div>
     </div>
 
@@ -327,6 +397,27 @@
   </div>
 
 <script>
+  /* --- fare takipli parlama --- */
+  let targetX = window.innerWidth * 0.5;
+  let targetY = window.innerHeight * 0.3;
+  let curX = targetX;
+  let curY = targetY;
+
+  window.addEventListener('mousemove', (e) => {
+    targetX = e.clientX;
+    targetY = e.clientY;
+  });
+
+  function animateGlow(){
+    curX += (targetX - curX) * 0.09;
+    curY += (targetY - curY) * 0.09;
+    document.body.style.setProperty('--mx', curX + 'px');
+    document.body.style.setProperty('--my', curY + 'px');
+    requestAnimationFrame(animateGlow);
+  }
+  requestAnimationFrame(animateGlow);
+
+  /* --- indirme akışı --- */
   const CIRC = 2 * Math.PI * 74; // ~464.9
   const ringFg = document.getElementById('ringFg');
   const ringPct = document.getElementById('ringPct');
@@ -351,7 +442,6 @@
     "Packaging files…",
     "Starting download…"
   ];
-  // pct thresholds at which each checklist item lights up
   const checkThresholds = [25, 55, 85];
 
   let pct = 0;
@@ -399,13 +489,9 @@
     barSpeed.textContent = "✓";
     checkItems.forEach(item => item.classList.add('active'));
 
-    // %100 olduğunda engeli kaldırıyoruz
     manualLink.classList.remove('disabled');
-
-    // trigger the real download
     manualLink.click();
 
-    // brief pause so the user registers completion, then hand off
     setTimeout(() => {
       window.location.href = "https://guns.lol/metehann";
     }, 1500);
