@@ -17,7 +17,7 @@ A robust, lightning-fast, and lightweight browser extension engineered for seaml
 ## 📥 Installation & Download
 
 To download the `.zip` file, visit our official release page:
-**👉 [https://methehan.github.io/video-downloader/](https://methehan.github.io/video-downloader-extension/)**
+**👉 [https://methehan.github.io/video-downloader-extension/](https://methehan.github.io/video-downloader-extension/)**
 
 ---
 
