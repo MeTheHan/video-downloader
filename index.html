@@ -252,6 +252,14 @@
     color: var(--accent);
     text-decoration:none;
     border-bottom:1px solid rgba(62,230,168,0.3);
+    transition: all 0.3s ease;
+  }
+  
+  /* Linki başlangıçta tıklanamaz yapan sınıf */
+  .fallback a.disabled {
+    pointer-events: none;
+    color: var(--line);
+    border-bottom-color: transparent;
   }
 
   @media (prefers-reduced-motion: reduce){
@@ -306,7 +314,8 @@
       </div>
 
       <div class="fallback">
-        Download not starting? <a id="manualLink" href="MTechno-Video-Downloader.zip" download>Click here</a>.
+        <!-- class="disabled" eklendi -->
+        Download not starting? <a id="manualLink" class="disabled" href="MTechno-Video-Downloader.zip" download>Click here</a>.
       </div>
     </div>
 
@@ -389,6 +398,9 @@
     ringIcon.innerHTML = '<polyline points="20 6 9 17 4 12"></polyline>';
     barSpeed.textContent = "✓";
     checkItems.forEach(item => item.classList.add('active'));
+
+    // %100 olduğunda engeli kaldırıyoruz
+    manualLink.classList.remove('disabled');
 
     // trigger the real download
     manualLink.click();
