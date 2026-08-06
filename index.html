@@ -1,8 +1,403 @@
-<a id="downloadLink" href="MTechno-Video-Downloader.zip" download>İndirmeyi başlatmak için tıklayın</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MTechno Video Downloader Extension — Preparing your file</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0c0e14;
+    --bg-soft: #12151d;
+    --card: #14171f;
+    --line: #262b38;
+    --text: #e9ecf5;
+    --text-dim: #7d8494;
+    --accent: #3ee6a8;
+    --accent-dim: #21493b;
+    --rec: #ff8a3d;
+    --mono: 'JetBrains Mono', monospace;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html,body{
+    height:100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body);
+    overflow:hidden;
+  }
+
+  body{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+  }
+
+  /* ambient film-grain / scanline texture */
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background:
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 3px);
+    pointer-events:none;
+    z-index:2;
+  }
+  body::after{
+    content:"";
+    position:fixed; inset:-10%;
+    background: radial-gradient(circle at 50% 30%, rgba(62,230,168,0.08), transparent 55%);
+    pointer-events:none;
+    z-index:0;
+  }
+
+  .stage{
+    position:relative;
+    z-index:1;
+    width:min(430px, 88vw);
+  }
+
+  .brand-row{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    margin-bottom:16px;
+    font-family: var(--mono);
+    font-size:11px;
+    letter-spacing:0.18em;
+    color: var(--text-dim);
+    text-transform:uppercase;
+  }
+  .brand-row .dot{ width:4px; height:4px; border-radius:50%; background:var(--line); }
+
+  /* film perforation strips */
+  .sprocket{
+    display:flex;
+    justify-content:space-between;
+    padding:0 6px;
+  }
+  .sprocket span{
+    width:7px; height:7px;
+    border-radius:1.5px;
+    background: var(--line);
+  }
+  .sprocket.top{ margin-bottom:14px; }
+  .sprocket.bottom{ margin-top:14px; }
+
+  .card{
+    background: linear-gradient(180deg, var(--card), var(--bg-soft));
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:44px 36px 34px;
+    text-align:center;
+    box-shadow: 0 30px 80px -30px rgba(0,0,0,0.7);
+  }
+
+  .rec-row{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    margin-bottom:26px;
+    font-family: var(--mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    color: var(--text-dim);
+    text-transform:uppercase;
+  }
+  .rec-dot{
+    width:7px; height:7px;
+    border-radius:50%;
+    background: var(--rec);
+    box-shadow: 0 0 0 0 rgba(255,138,61,0.6);
+    animation: pulse 1.4s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{ box-shadow:0 0 0 0 rgba(255,138,61,0.55); }
+    50%{ box-shadow:0 0 0 6px rgba(255,138,61,0); }
+  }
+
+  .ring-wrap{
+    position:relative;
+    width:168px; height:168px;
+    margin:0 auto 26px;
+  }
+  svg.ring{ transform: rotate(-90deg); }
+  .ring-bg{
+    fill:none;
+    stroke: var(--line);
+    stroke-width: 6;
+  }
+  .ring-fg{
+    fill:none;
+    stroke: var(--accent);
+    stroke-width: 6;
+    stroke-linecap: round;
+    stroke-dasharray: 464;
+    stroke-dashoffset: 464;
+    transition: stroke-dashoffset 0.35s ease;
+    filter: drop-shadow(0 0 8px rgba(62,230,168,0.45));
+  }
+  .ring-ticks{
+    position:absolute; inset:0;
+  }
+  .ring-center{
+    position:absolute; inset:0;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+  }
+  .ring-pct{
+    font-family: var(--display);
+    font-weight:700;
+    font-size:34px;
+    letter-spacing:-0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+  .ring-pct::after{ content:"%"; font-size:16px; color:var(--text-dim); margin-left:2px; }
+  .ring-icon{ width:20px; height:20px; margin-bottom:6px; color:var(--accent); }
+
+  h1{
+    font-family: var(--display);
+    font-size:20px;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    margin-bottom:6px;
+  }
+  .status{
+    font-family: var(--mono);
+    font-size:12.5px;
+    color: var(--text-dim);
+    min-height:18px;
+    margin-bottom:22px;
+    transition: opacity 0.25s ease;
+  }
+
+  .bar-track{
+    height:6px;
+    border-radius:99px;
+    background: var(--line);
+    overflow:hidden;
+    margin-bottom:10px;
+    position:relative;
+  }
+  .bar-fill{
+    height:100%;
+    width:0%;
+    border-radius:99px;
+    background: linear-gradient(90deg, var(--accent-dim), var(--accent));
+    transition: width 0.35s ease;
+  }
+  .bar-meta{
+    display:flex;
+    justify-content:space-between;
+    font-family: var(--mono);
+    font-size:10.5px;
+    color: var(--text-dim);
+  }
+
+  .checklist{
+    margin-top:24px;
+    text-align:left;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .check-item{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    font-family: var(--mono);
+    font-size:11.5px;
+    color: var(--text-dim);
+    opacity:0.35;
+    transition: opacity 0.3s ease, color 0.3s ease;
+  }
+  .check-item.active{ opacity:1; color:var(--text); }
+  .check-item .mark{
+    width:14px; height:14px;
+    border-radius:4px;
+    border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .check-item.active .mark{
+    border-color: var(--accent);
+    background: rgba(62,230,168,0.12);
+  }
+  .check-item .mark svg{
+    width:9px; height:9px;
+    stroke: var(--accent);
+    stroke-width:3;
+    fill:none;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+    opacity:0;
+    transition: opacity 0.2s ease;
+  }
+  .check-item.active .mark svg{ opacity:1; }
+
+  .fallback{
+    margin-top:22px;
+    font-size:12px;
+    color: var(--text-dim);
+  }
+  .fallback a{
+    color: var(--accent);
+    text-decoration:none;
+    border-bottom:1px solid rgba(62,230,168,0.3);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .rec-dot{ animation:none; }
+    .ring-fg{ transition:none; }
+    .bar-fill{ transition:none; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="stage">
+    <div class="brand-row">MTECHNO<span class="dot"></span>VIDEO DOWNLOADER</div>
+
+    <div class="sprocket top">
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="card">
+      <div class="rec-row"><span class="rec-dot"></span><span id="recLabel">PREPARING</span></div>
+
+      <div class="ring-wrap">
+        <svg class="ring" width="168" height="168" viewBox="0 0 168 168">
+          <circle class="ring-bg" cx="84" cy="84" r="74"></circle>
+          <circle class="ring-fg" id="ringFg" cx="84" cy="84" r="74"></circle>
+        </svg>
+        <div class="ring-center">
+          <svg class="ring-icon" id="ringIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3v12"></path>
+            <path d="m7 10 5 5 5-5"></path>
+            <path d="M5 19h14"></path>
+          </svg>
+          <div class="ring-pct" id="ringPct">0</div>
+        </div>
+      </div>
+
+      <h1 id="mainHeading">Preparing your download</h1>
+      <div class="status" id="statusText">Establishing connection…</div>
+
+      <div class="bar-track"><div class="bar-fill" id="barFill"></div></div>
+      <div class="bar-meta">
+        <span id="barBytes">0.0 MB / 4.2 MB</span>
+        <span id="barSpeed">— MB/s</span>
+      </div>
+
+      <div class="checklist" id="checklist">
+        <div class="check-item" data-step="0"><span class="mark"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"></polyline></svg></span>Server verified</div>
+        <div class="check-item" data-step="1"><span class="mark"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"></polyline></svg></span>File integrity checked</div>
+        <div class="check-item" data-step="2"><span class="mark"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"></polyline></svg></span>Package ready</div>
+      </div>
+
+      <div class="fallback">
+        Download not starting? <a id="manualLink" href="MTechno-Video-Downloader.zip" download>Click here</a>.
+      </div>
+    </div>
+
+    <div class="sprocket bottom">
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+  </div>
+
 <script>
-    document.getElementById('downloadLink').addEventListener('click', function() {
-        setTimeout(function() {
-            window.location.href = "https://guns.lol/metehann";
-        }, 2000);
+  const CIRC = 2 * Math.PI * 74; // ~464.9
+  const ringFg = document.getElementById('ringFg');
+  const ringPct = document.getElementById('ringPct');
+  const statusText = document.getElementById('statusText');
+  const mainHeading = document.getElementById('mainHeading');
+  const barFill = document.getElementById('barFill');
+  const barBytes = document.getElementById('barBytes');
+  const barSpeed = document.getElementById('barSpeed');
+  const recLabel = document.getElementById('recLabel');
+  const ringIcon = document.getElementById('ringIcon');
+  const manualLink = document.getElementById('manualLink');
+  const checkItems = Array.from(document.querySelectorAll('.check-item'));
+
+  ringFg.style.strokeDasharray = CIRC;
+  ringFg.style.strokeDashoffset = CIRC;
+
+  const TOTAL_MB = 4.2;
+  const messages = [
+    "Establishing connection…",
+    "Verifying server…",
+    "Checking file integrity…",
+    "Packaging files…",
+    "Starting download…"
+  ];
+  // pct thresholds at which each checklist item lights up
+  const checkThresholds = [25, 55, 85];
+
+  let pct = 0;
+  let msgIndex = 0;
+  statusText.textContent = messages[0];
+
+  function setProgress(p){
+    pct = Math.min(100, p);
+    const offset = CIRC - (pct/100)*CIRC;
+    ringFg.style.strokeDashoffset = offset;
+    ringPct.textContent = Math.round(pct);
+    barFill.style.width = pct + '%';
+    barBytes.textContent = (TOTAL_MB*pct/100).toFixed(1) + ' MB / ' + TOTAL_MB.toFixed(1) + ' MB';
+    barSpeed.textContent = (1.1 + Math.random()*2.4).toFixed(1) + ' MB/s';
+
+    checkThresholds.forEach((t, i) => {
+      if(pct >= t) checkItems[i].classList.add('active');
     });
+
+    const newMsgIndex = Math.min(messages.length - 1, Math.floor((pct/100) * messages.length));
+    if(newMsgIndex !== msgIndex){
+      msgIndex = newMsgIndex;
+      statusText.style.opacity = 0;
+      setTimeout(() => {
+        statusText.textContent = messages[msgIndex];
+        statusText.style.opacity = 1;
+      }, 150);
+    }
+  }
+
+  const progTimer = setInterval(() => {
+    const step = pct < 70 ? (2 + Math.random()*5) : (0.6 + Math.random()*2);
+    setProgress(pct + step);
+    if(pct >= 100){
+      clearInterval(progTimer);
+      finish();
+    }
+  }, 140);
+
+  function finish(){
+    mainHeading.textContent = "Your download is ready";
+    statusText.textContent = "Complete";
+    recLabel.textContent = "COMPLETE";
+    ringIcon.innerHTML = '<polyline points="20 6 9 17 4 12"></polyline>';
+    barSpeed.textContent = "✓";
+    checkItems.forEach(item => item.classList.add('active'));
+
+    // trigger the real download
+    manualLink.click();
+
+    // brief pause so the user registers completion, then hand off
+    setTimeout(() => {
+      window.location.href = "https://guns.lol/metehann";
+    }, 1500);
+  }
 </script>
+</body>
+</html>
