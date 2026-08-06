@@ -40,7 +40,7 @@
     position:relative;
   }
 
-  /* ambient film-grain / scanline texture */
+  /* aKBient film-grain / scanline texture */
   body::before{
     content:"";
     position:fixed; inset:0;
@@ -295,8 +295,8 @@
 
       <div class="bar-track"><div class="bar-fill" id="barFill"></div></div>
       <div class="bar-meta">
-        <span id="barBytes">0.0 MB / 4.2 MB</span>
-        <span id="barSpeed">— MB/s</span>
+        <span id="barBytes">0.0 KB / 18.4 KB</span>
+        <span id="barSpeed">— KB/s</span>
       </div>
 
       <div class="checklist" id="checklist">
@@ -334,7 +334,7 @@
   ringFg.style.strokeDasharray = CIRC;
   ringFg.style.strokeDashoffset = CIRC;
 
-  const TOTAL_MB = 4.2;
+  const TOTAL_KB = 4.2;
   const messages = [
     "Establishing connection…",
     "Verifying server…",
@@ -355,8 +355,8 @@
     ringFg.style.strokeDashoffset = offset;
     ringPct.textContent = Math.round(pct);
     barFill.style.width = pct + '%';
-    barBytes.textContent = (TOTAL_MB*pct/100).toFixed(1) + ' MB / ' + TOTAL_MB.toFixed(1) + ' MB';
-    barSpeed.textContent = (1.1 + Math.random()*2.4).toFixed(1) + ' MB/s';
+    barBytes.textContent = (TOTAL_KB*pct/100).toFixed(1) + ' KB / ' + TOTAL_KB.toFixed(1) + ' KB';
+    barSpeed.textContent = (1.1 + Math.random()*2.4).toFixed(1) + ' KB/s';
 
     checkThresholds.forEach((t, i) => {
       if(pct >= t) checkItems[i].classList.add('active');
